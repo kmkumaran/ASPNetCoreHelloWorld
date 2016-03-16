@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  helloworld:
+    build:
+      context: ..
+      dockerfile: Docker/Dockerfile.release
+      args:
+      - CONTAINER_PORT=${HELLOWORLD_PORT}
+      - SERVER_URLS=http://*:${HELLOWORLD_PORT}
+    ports:
+    - "${HOST_PORT}:${HELLOWORLD_PORT}"
