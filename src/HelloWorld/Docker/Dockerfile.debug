@@ -1,4 +1,4 @@
-FROM microsoft/aspnet
+FROM microsoft/aspnet:1.0.0-rc1-update1-coreclr
 
 #Adds location of global commands to path so that they can be run (because entry point doesn’t run bash profile to load dnvm)
 ENV PATH $PATH:$DNX_USER_HOME/bin

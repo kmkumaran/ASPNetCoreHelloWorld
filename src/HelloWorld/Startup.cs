@@ -28,8 +28,7 @@ namespace HelloWorld
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
-
-
+                
                 StringBuilder envVars = new StringBuilder();
                 foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
                     envVars.Append((string)de.Key + ":" + (string)de.Value + "---" + Environment.NewLine);
