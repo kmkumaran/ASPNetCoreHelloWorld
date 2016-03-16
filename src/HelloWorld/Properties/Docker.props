@@ -6,6 +6,6 @@
     <!--<DockerBuild Condition=" '$(DockerBuild)'=='' ">True</DockerBuild> -->
 
     <!-- Use this property to change the docker host that is used by this project (Note: you need to restart VS after changing this property) -->
-    <DockerMachineName Condition=" '$(DockerMachineName)'=='' ">default</DockerMachineName>
+    <DockerMachineName Condition=" '$(DockerMachineName)'=='' "></DockerMachineName>
   </PropertyGroup>
 </Project>

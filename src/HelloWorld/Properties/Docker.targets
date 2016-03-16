@@ -31,7 +31,7 @@
   <Target Name="DockerBuild" AfterTargets="Build" DependsOnTargets="$(DockerBuildDependsOn)" />
   <Target Name="CoreDockerBuild" Condition="'$(DockerBuild)'=='True'">
     <PropertyGroup>
-      <DockerBuildCommand>powershell -ExecutionPolicy RemoteSigned .\Docker\DockerTask.ps1 -Build -Environment $(Configuration) -Machine $(DockerMachineName)</DockerBuildCommand>
+      <DockerBuildCommand>powershell -ExecutionPolicy RemoteSigned .\Docker\DockerTask.ps1 -Build -Environment $(Configuration) -Machine '$(DockerMachineName)'</DockerBuildCommand>
       <DockerBuildCommand Condition="'$(NoDockerCache)'=='True'">$(DockerBuildCommand) -NoCache</DockerBuildCommand>
     </PropertyGroup>
     <Exec
@@ -44,7 +44,7 @@
   <Target Name="CoreDockerClean" Condition="'$(DockerBuild)'=='True'">
     <Exec
       WorkingDirectory="$(MSBuildProjectDirectory)"
-      Command="powershell -ExecutionPolicy RemoteSigned .\Docker\DockerTask.ps1 -Clean -Environment $(Configuration) -Machine $(DockerMachineName)" />
+      Command="powershell -ExecutionPolicy RemoteSigned .\Docker\DockerTask.ps1 -Clean -Environment $(Configuration) -Machine '$(DockerMachineName)'" />
   </Target>
 
   <!-- These targets take care of buiding the docker image as part of the project's rebuild -->

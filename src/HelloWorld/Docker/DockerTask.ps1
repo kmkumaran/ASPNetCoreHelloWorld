@@ -10,10 +10,9 @@ Param(
     [parameter(ParameterSetName = "Run", Position = 1, Mandatory = $True)]
     [ValidateNotNullOrEmpty()]
     [String]$Environment,
-    [parameter(ParameterSetName = "Clean", Position = 2, Mandatory = $True)]
-    [parameter(ParameterSetName = "Build", Position = 2, Mandatory = $True)]
-    [parameter(ParameterSetName = "Run", Position = 2, Mandatory = $True)]
-    [ValidateNotNullOrEmpty()]
+    [parameter(ParameterSetName = "Clean", Position = 2, Mandatory = $False)]
+    [parameter(ParameterSetName = "Build", Position = 2, Mandatory = $False)]
+    [parameter(ParameterSetName = "Run", Position = 2, Mandatory = $False)]
     [String]$Machine,
     [parameter(ParameterSetName = "Clean", Position = 3, Mandatory = $False)]
     [parameter(ParameterSetName = "Build", Position = 3, Mandatory = $False)]
@@ -121,8 +120,12 @@ function Run () {
 
 # Opens the remote site
 function OpenSite () {
-    $uri = "http://docker:$HostPort"
-    #$uri = "http://$(docker-machine ip $(docker-machine active)):$HostPort"
+    if ([System.String]::IsNullOrWhiteSpace($Machine)) {
+        $uri = "http://docker:$HostPort"
+    }
+    else {
+        $uri = "http://$(docker-machine ip ${Machine}):$HostPort"
+    }
     Write-Host "Opening site $uri " -NoNewline
     $status = 0
 
@@ -144,8 +147,10 @@ function OpenSite () {
     Start-Process $uri
 }
 
+if (![System.String]::IsNullOrWhiteSpace($Machine)) {
 # Set the environment variables for the docker machine to connect to
-#docker-machine.exe env $Machine --shell powershell | Invoke-Expression
+    docker-machine env $Machine --shell powershell | Invoke-Expression
+}
 
 # Need the full path of the project for mapping
 $ProjectFolder = Resolve-Path $ProjectFolder
