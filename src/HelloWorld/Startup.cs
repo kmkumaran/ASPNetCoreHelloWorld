@@ -27,18 +27,20 @@ namespace HelloWorld
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
-                
+                await context.Response.WriteAsync("Hello World!" + Environment.NewLine);
+
                 StringBuilder envVars = new StringBuilder();
                 foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
                     envVars.Append((string)de.Key + ":" + (string)de.Value + "---" + Environment.NewLine);
 
                 try
                 {
-                    await context.Response.WriteAsync(envVars.ToString());
 
+                    string cloud = Environment.GetEnvironmentVariable("CLOUD_NAME");
+                    await context.Response.WriteAsync("Cloud:" + cloud + Environment.NewLine);
                     string machineName = Environment.GetEnvironmentVariable("HOSTNAME");
-                    await context.Response.WriteAsync(machineName);
+                    await context.Response.WriteAsync("Host:" + machineName + Environment.NewLine);
+                    await context.Response.WriteAsync("EnvVars:" + Environment.NewLine + envVars.ToString());
 
                 }
                 catch (Exception ex)

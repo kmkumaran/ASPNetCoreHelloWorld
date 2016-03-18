@@ -102,7 +102,7 @@ function Run () {
 
         if ($conflictingContainerIds) {
             $conflictingContainerIds = $conflictingContainerIds -Join ' '
-            Write-Host "Stoping conflicting containers using port ${Port}"
+            Write-Host "Stopping conflicting containers using port $HostPort"
             cmd /c docker stop $conflictingContainerIds "2>&1"
         }
 
@@ -121,7 +121,7 @@ function Run () {
 # Opens the remote site
 function OpenSite () {
     if ([System.String]::IsNullOrWhiteSpace($Machine)) {
-        $uri = "http://docker:$HostPort"
+        $uri = "http://docker.local:$HostPort"
     }
     else {
         $uri = "http://$(docker-machine ip ${Machine}):$HostPort"
