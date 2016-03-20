@@ -6,7 +6,7 @@ services:
       context: ..
       dockerfile: Docker/Dockerfile.release
       args:
-      - CONTAINER_PORT=5001
+      - CONTAINER_PORT=5000
       - SERVER_URLS=http://*:5001
     ports:
     - "5001:5001"
